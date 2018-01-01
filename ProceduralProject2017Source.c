@@ -30,7 +30,7 @@ void main() {
 	int numberOfUsers;
 	int i, j;
 	int roundCounter;
-	int deckOfCards[52] = { 2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14 };
+	//int deckOfCards[52] = { 2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14 };
 	int highestCard = 0, newHighestCard;
 	int playerWithHighestCard;
 
@@ -47,7 +47,7 @@ void main() {
 	dispenseCards();
 
 	//Display all player hands --> Made to check if working
-	displayAllCards();
+	//displayAllCards();
 
 	//Playing the game============================================================================================
 	printf("Please enter number of players [2-10 players]: ");
@@ -58,7 +58,7 @@ void main() {
 
 		//Initial for counter used for 13 game rounds
 		for (i = 0; i < 2; i++) {
-			printf("Current Game Round: %d\n", i);
+			printf("**** Current Game Round: %d ****\n", i);
 			printf("\n");
 
 			//Inner for used for player turns
@@ -69,14 +69,18 @@ void main() {
 				//Check who has highest card
 				if (newHighestCard > highestCard) {
 					highestCard = newHighestCard;
-					playerWithHighestCard = j;
-
-					printf("Highest Card: %d\n\n", highestCard);
+					playerWithHighestCard = j;				
 
 					card_player[playerWithHighestCard].playerScore += runningTotalScore;
 				}
 			}
-			
+
+			//Show highest card at end of round
+			printf("===============================\n\n");
+			printf("Highest Card: %d\n", highestCard);
+			printf("Player with highest card: %d\n\n", playerWithHighestCard);
+			printf("===============================\n\n");
+
 			//Reset highest card for end of round
 			highestCard = 0;
 		}
@@ -85,7 +89,7 @@ void main() {
 		printf("Invalid player count!");
 	}
 
-	printf("\n\n==========================================");
+	printf("\n\n===============================\n\n");
 	//Print end score for each active player
 	for (i = 0; i < numberOfUsers; i++) {
 		printf("Player %2d score: %4d", i, card_player[i].playerScore);
@@ -95,8 +99,10 @@ void main() {
 
 void displayPlayerHand(int playerNumber) {
 	int i, j;
+
+	printf(" --- Current player: %d ---\n\n", playerNumber);
 	for (i = 0; i < 13; i++) {
-			printf("Player: %2d\tCard: %2d\tIndex: %2d",playerNumber, card_player[playerNumber].playerHand[i],i);
+			printf("Card: %2d\tIndex: %2d",card_player[playerNumber].playerHand[i],i);
 			printf("\n");
 	}
 	printf("\n");
@@ -107,11 +113,11 @@ int getPlayerCardSelection(int playerNumber) {
 
 	displayPlayerHand(playerNumber);
 
-	printf("Please enter card choice based on available [use index value please]: ");
+	printf("--> Select a card [Use index value!]: ");
 	scanf("%d", &cardChoice);
 	printf("\n");
 
-	printf("Card choice: %d", card_player[playerNumber].playerHand[cardChoice]);
+	printf("--> Card choice: %d", card_player[playerNumber].playerHand[cardChoice]);
 	printf("\n\n");
 
 	cardValue = card_player[playerNumber].playerHand[cardChoice];
@@ -148,3 +154,4 @@ void displayAllCards() {
 		printf("\n");
 	}
 }
+
